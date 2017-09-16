@@ -2,10 +2,8 @@
 Angular Directives to make user interface of mobile verified service booking website.
 
 ## Installation ##
-```
-yarn add angular-clean
-bower install angular-clean
-```
+* `yarn add angular-clean`
+* `bower install angular-clean`
 
 ## Author ##
 Rishabh Kesarwani, rishabh.e203@gmail.com, http://rishabhkesarwani.com
