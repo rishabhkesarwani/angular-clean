@@ -173,13 +173,17 @@ angular.module('angular-clean', [])
         return {
             restrict: 'A',
             link: function (scope, element, attributes) {
-                $rootScope.$on('$stateChangeSuccess', function () {
+                var adjustAnchorClasses = function () {
                     if (window.location.pathname == attributes.href) {
                         element.addClass('active-state-anchor');
                     } else {
                         element.removeClass('active-state-anchor');
                     }
-                })
+                }
+                $rootScope.$on('$stateChangeSuccess', function () {
+                    adjustAnchorClasses();
+                });
+                adjustAnchorClasses();
             }
         }
     }])
