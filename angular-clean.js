@@ -430,7 +430,7 @@ angular.module('angular-clean', [])
     .directive('cleanBooking', [function () {
         return {
             restrict: 'E',
-            template: '<div class="white-smoke-background aqua-bottom-border mx-16 p-16">' +
+            template: '<div class="white-smoke-background aqua-bottom-border p-16">' +
             '   <p><b>Order ID:</b> {{order.obfuscated_order_id}}</p>' +
             '   <p><b>{{order.service_eta_slot}}, {{order.service_id}}</b></p>' +
             '   <div id="timeline-contatiner" class="text-left" ng-if="order.order_status < 4">' +
