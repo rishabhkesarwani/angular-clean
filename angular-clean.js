@@ -147,8 +147,8 @@ angular.module('angular-clean', [])
             },
             link: function (scope) {
 
-                if (scope.wordsVisible == undefined) {
-                    scope.wordsVisible = 20;
+                if (scope.wordsVisible == undefined || scope.wordsVisible < 0) {
+                    scope.wordsVisible = 30;
                 }
 
                 if (scope.visibleShort = (scope.paraArray = scope.paragraphHtml.split(' ')).length > scope.wordsVisible) {
@@ -394,10 +394,11 @@ angular.module('angular-clean', [])
             '        <i class="keeper {{detail.icon}}"></i>' +
             '   </h4>' +
             '   <h4 class="feature-heading px-16" ng-if="detail.name">{{detail.name | uppercase}}</h4>' +
-            '   <div read-more class="feature-description px-16" ng-if="detail.description" paragraph-html="detail.description" words-visible="29"></div>' +
+            '   <div read-more words-visible="wordsVisible" class="feature-description px-16" ng-if="detail.description" paragraph-html="detail.description"></div>' +
             '</div>',
             scope: {
-                detail: '='
+                detail: '=',
+                wordsVisible: '=?'
             }
         }
     }])
@@ -435,9 +436,14 @@ angular.module('angular-clean', [])
         return {
             restrict: 'E',
             template: '<div class="white-smoke-background aqua-bottom-border p-16">' +
-            '   <p><b>Order ID:</b> {{order.obfuscated_order_id}}</p>' +
-            '   <p><b>{{order.service_eta_slot}}, {{order.service_id}}</b></p>' +
-            '   <div id="timeline-contatiner" class="text-left" ng-if="order.order_status < 4">' +
+            '   <div class="feature-description">{{order.service_eta_slot}}</div>' +
+            '   <div class="col-md-12">' +
+            '       <div class="col-md-8 feature-heading">Order ID: {{order.obfuscated_order_id}}</div>' +
+            '       <div class="col-md-4 feature-heading text-right" ng-if="order.order_status == 6 || order.order_status == 4">AED {{order.total_amount}}</div>' +
+            '   </div>' +
+            '   <div class="feature-description">{{order.service_id}}</div>' +
+            '   <div class="feature-description" ng-if="order.coupon_code"><b>Promo code {{order.coupon_code}} applied</b></div>' +
+            '   <div class="text-left mt-16" ng-if="order.order_status < 4">' +
             '   <timeline>' +
             '       <timeline-event ng-repeat="event in order.timeline_events" side="right">' +
             '       <timeline-badge class="{{event.badgeClass}}">' +
@@ -450,10 +456,7 @@ angular.module('angular-clean', [])
             '       </timeline-event>' +
             '   </timeline>' +
             '   </div>' +
-            '   <div ng-if="order.order_status >= 4">' +
-            '       <p class="mb-0" ng-if="order.order_status == 6 || order.order_status == 4"><b>Bill Amount: </b><span class="bill-amount">AED {{order.total_amount}}</span></p>' +
-            '       <p class="mb-0" ng-if="order.order_status == 5">Cancelled</p>' +
-            '   </div>' +
+            '   <div class="mb-0" ng-if="order.order_status == 5">Cancelled</div>' +
             '</div>',
             scope: {
                 order: '='
